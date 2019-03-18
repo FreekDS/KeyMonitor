@@ -1,24 +1,21 @@
 #include "KeyRecorder.h"
 #include <iostream>
 #include <fstream>
+#include <KeyRecorder.h>
 
-void KeyRecorder::start() {
+
+bool KeyRecorder::start() {
     if (my_thread == nullptr) {
         halt = false;
         my_thread = new std::thread(&KeyRecorder::monitorKeys, this);
+        return true;
     }
+    return false;
 }
 
-void KeyRecorder::stop() {
-    if (my_thread != nullptr) {
-        halt = true;
-        my_thread->join();
-        delete my_thread;
-        my_thread = nullptr;
-        createLoggingFile();
-    } else {
-        std::cerr << "Cannot stop keystroke thread as it does not exist" << std::endl;
-    }
+bool KeyRecorder::stop() {
+    pause();
+    key_count.clear();
 }
 
 KeyRecorder::KeyRecorder() : my_thread(nullptr), halt(false) {}
@@ -71,4 +68,18 @@ std::ostream &operator<<(std::ostream &os, const KeyRecorder &recorder) {
         os << getKeyString(it.first) << " -> " << it.second << std::endl;
     }
     return os;
+}
+
+bool KeyRecorder::pause() {
+    if (my_thread != nullptr) {
+        halt = true;
+        my_thread->join();
+        delete my_thread;
+        my_thread = nullptr;
+        createLoggingFile();
+        return true;
+    } else {
+        std::cerr << "Cannot stop keystroke thread as it does not exist" << std::endl;
+        return false;
+    }
 }

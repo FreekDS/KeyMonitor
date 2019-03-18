@@ -41,13 +41,15 @@ public:
      * Start monitoring keystrokes by calling this function.
      * A thread is spawned to count the keystrokes.
      */
-    void start();
+    bool start();
 
     /**
      * Stop monitoring keystrokes by calling this function.
      * The running thread will be stopped and deleted.
      */
-    void stop();
+    bool stop();
+
+    bool pause();
 
     /**
      * Create a log file containing the amount of presses per key.

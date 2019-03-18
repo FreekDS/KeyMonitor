@@ -6,7 +6,7 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-    KeyMonitor::Application app(500, 500, "Key monitor");
+    KeyMonitor::Application app(320, 110, "Key monitor");
     try{
         app.run();
     }catch(std::exception& e){

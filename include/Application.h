@@ -10,15 +10,19 @@ namespace KeyMonitor {
     class Application {
     private:
         sf::RenderWindow m_window;
-        sf::View m_view;
         KeyRecorder m_keyRecorder;
         void handleEvents();
-        Button startButton;
+        std::vector<Button*> m_buttons;
+        Button* m_stopButton;
+        void resetButtons();
     public:
+
+        virtual ~Application();
 
         Application(u_int width, u_int height, const std::string& title);
 
         void run();
+
     };
 
 } // namespace KeyMonitor
