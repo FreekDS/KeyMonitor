@@ -15,6 +15,7 @@ void KeyRecorder::stop() {
         my_thread->join();
         delete my_thread;
         my_thread = nullptr;
+        createLoggingFile();
     } else {
         std::cerr << "Cannot stop keystroke thread as it does not exist" << std::endl;
     }
