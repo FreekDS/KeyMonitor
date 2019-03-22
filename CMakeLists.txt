@@ -14,12 +14,13 @@ set(SRC
         src/UI/Button.cpp)
 
 find_package(SFML 2 COMPONENTS graphics window audio system)
+find_package(PostgreSQL REQUIRED)
 
 include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/include
         ${SFML_INCLUDE_DIR})
 
-add_executable(KeyRecorder ${SRC})
+add_executable(KeyRecorder WIN32 ${SRC})
 add_executable(Helper src/helper.cpp)
 
 target_link_libraries(KeyRecorder ${SFML_LIBRARIES})
